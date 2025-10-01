@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import EditTodoModal from "../components/EditTodoModal";

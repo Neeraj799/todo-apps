@@ -30,10 +30,18 @@ const Login = ({ setIsLoggedIn }) => {
         navigate("/");
       }
     } catch (error) {
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message);
+      const data = error.response?.data;
+
+      if (data?.error) {
+        if (Array.isArray(data.error)) {
+          data.error.forEach((err) => toast.error(err.message));
+        } else {
+          toast.error(data.error);
+        }
+      } else if (data?.message) {
+        toast.error(data.message);
       } else {
-        toast.error("Login failed");
+        toast.error("Registration failed");
       }
     }
   };

@@ -7,7 +7,7 @@ const userSignupValidation = Joi.object({
 });
 
 const userLoginValidation = Joi.object({
-  email: Joi.string().trim().required(),
+  email: Joi.string().trim().email().required(),
   password: Joi.string().min(4).max(100).required(),
 });
 

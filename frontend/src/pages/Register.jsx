@@ -29,10 +29,18 @@ const Register = () => {
         navigate("/login");
       }
     } catch (error) {
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message);
+      const data = error.response?.data;
+
+      if (data?.error) {
+        if (Array.isArray(data.error)) {
+          data.error.forEach((err) => toast.error(err.message));
+        } else {
+          toast.error(data.error);
+        }
+      } else if (data?.message) {
+        toast.error(data.message);
       } else {
-        toast.error("Registeration failed");
+        toast.error("Registration failed");
       }
     }
   };
@@ -49,7 +57,7 @@ const Register = () => {
           type="text"
           name="username"
           placeholder="Name"
-          value={FormData.username}
+          value={formData.username}
           onChange={handleChange}
           className="w-full p-2 border mb-3 rounded"
           required
@@ -59,7 +67,7 @@ const Register = () => {
           type="text"
           name="email"
           placeholder="Email"
-          value={FormData.email}
+          value={formData.email}
           onChange={handleChange}
           className="w-full p-2 border mb-3 rounded"
           required
